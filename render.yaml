@@ -1,0 +1,46 @@
+# Render blueprint for the HoldWatch site AND the HoldWatch product.
+#
+# This file lives in the SITE repo but declares the product's web services too, so
+# one Blueprint creates the whole public surface:
+#
+#   holdwatch-site      the static site (this repo)
+#   holdwatch-dashboard the live product dashboard
+#   holdwatch-receiver  the webhook intake
+#
+# Creating the site no longer depends on GitHub Pages, which reports `built`
+# while serving a cached 404.
+#
+# HOW TO DEPLOY
+#   Render dashboard → New → Blueprint → pick HusseinAdeiza/holdwatch-site
+#   → Apply. Render reads this file.
+#
+# The site service needs NO environment variables: every figure it publishes is
+# read from holdwatch-dashboard at BUILD time by build.ts, and the build fails
+# rather than publishing an unverified number.
+
+services:
+  # ── the site ────────────────────────────────────────────────────────────
+  - type: web
+    name: holdwatch-site
+    runtime: static
+    # Static sites on Render use a prebuilt directory. buildCommand produces
+    # dist/, and the build FAILS if the live dashboard cannot be read, so a site
+    # can never publish figures the product no longer reports.
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: false
+    # A rebuild picks up new product numbers. Weekly is deliberate: the figures
+    # are read at build time, so they must not silently rot for weeks.
+    autoDeployTrigger: commit
+    # No secrets needed for the site itself.
+    envVars:
+      - key: NODE_VERSION
+        value: "22.22.0"
+
+# ── the product services ────────────────────────────────────────────────────
+# holdwatch-dashboard and holdwatch-receiver ALREADY EXIST on Render and are
+# working. They are deliberately NOT declared here: their code lives in
+# HusseinAdeiza/holdwatch, not in this repo, so declaring them in this blueprint
+# would try to build app.py from the site repo and fail.
+#
+# To redeploy those, open each service directly and use Manual Deploy.
