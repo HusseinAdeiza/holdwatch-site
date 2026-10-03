@@ -7,6 +7,29 @@ pre-filled. You are just choosing a repository and pressing Apply.
 
 ---
 
+## One thing left to fill in
+
+**Blueprint Name** is blank and Render requires it. It must be unique across your
+workspace, so it cannot be literally `holdwatch-site` — a service already owns
+that name.
+
+Type this:
+
+```
+holdwatch-site-v2
+```
+
+Any unused name works. It only labels the Blueprint; it does not affect the URL,
+which will still be:
+
+```
+https://holdwatch-site.onrender.com
+```
+
+Then tap **Deploy Blueprint**.
+
+---
+
 ## On your phone
 
 **1. Open the Render dashboard**
