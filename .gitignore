@@ -3,3 +3,4 @@ dist/
 .responsive/
 *.local
 .DS_Store
+_render/

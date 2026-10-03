@@ -1,0 +1,18 @@
+{
+  "total": 7,
+  "verified": 7,
+  "covered": 19,
+  "needsAction": 5,
+  "aiEnabled": true,
+  "reviewerPassed": true,
+  "readAt": "2026-10-03T15:53:37.974Z",
+  "readAtUnix": 1791042817974,
+  "webhookId": "10530851TK1789235",
+  "captureId": "6YH19408NM0071141",
+  "recall": 0.8,
+  "precision": 1,
+  "f1": 0.889,
+  "misses": 2,
+  "scenarios": 20,
+  "onHoldToken": "ONHOLD"
+}
